@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<h3>首页</h3>
+		login
 	</div>
 </template>
 
