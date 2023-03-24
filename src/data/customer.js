@@ -1,33 +1,42 @@
-// 客户服务 业务模块
+/*  客户服务 业务 模块  */
 
-// 从utils/request.js中导入相应方法
-import {
-	get,post,put,del
-} from '@/utils/request.js'
+// 从 utils/request.js 中 导入 get\post\put\patch\del 方法
+import {get,post,put,del} from '@/utils/request.js'
 
 // 资源路径
+// 客户收货信息 的 资源路径
+const RESOURCE_USER_ADDRESS = "customer/useraddress"
+// 中国行政地区 的 资源路径
+const RESOURCE_CHINA = "china"
+// 客户注册 的 资源路径
+const RESOURCE_REGIST = "regist"
+// 客户的登录 的 资源路径
+const RESOURCE_LOGIN = "login"
+// 客户的信息 的 资源路径
+const RESOURCE_USER = "customer/user"
 
-const RESOURCE_CHINA = 'china'
-const RESOURCE_REGIST = 'regist'
-const RESOURCE_LOGIN = 'login'
-const RESOURCE_CUSTOMER_USER = 'customer/user'
-const RESOURCE_CUSTOMER_USERADDRESS = 'customer/useraddress'
+// 导出 模块中的 每一个 api 接口方法
 
+// 添加客户收货信息的方法
+export const addUserAddress = data => post( RESOURCE_USER_ADDRESS , data )
 
-// 给给一个服务创建一个相对应方法
+// 修改客户收货信息的方法
+export const updateUserAddress = data => put( RESOURCE_USER_ADDRESS , data )
 
-export const getChina = data => get(RESOURCE_CHINA,data)
+// 删除客户收货信息的方法
+export const deleteUserAddress = id => del( RESOURCE_USER_ADDRESS + "/" + id )
 
-export const regist = data => post(RESOURCE_REGIST,data)
+// 查询客户收货信息的方法
+export const getUserAddress = () => get( RESOURCE_USER_ADDRESS )
 
-export const login = data => post(RESOURCE_LOGIN,data)
+// 查询行政地区列表
+export const getChina = data => get( RESOURCE_CHINA , data )
 
-export const getUserInfo = () => get(RESOURCE_CUSTOMER_USER)
+// 客户注册
+export const regist = data => post( RESOURCE_REGIST , data )
 
-export const addUserAddress = data => post(RESOURCE_CUSTOMER_USERADDRESS,data)
+// 客户登录
+export const login = data => post( RESOURCE_LOGIN , data )
 
-export const updateUserAddress = data => put(RESOURCE_CUSTOMER_USERADDRESS,data)
-
-export const deleteUserAddress = id => del(RESOURCE_CUSTOMER_USERADDRESS,id)
-
-export const getUserAddressList = data => get(RESOURCE_CUSTOMER_USERADDRESS,data)
+// 获取客户信息
+export const getUserInfo = () => get( RESOURCE_USER )
