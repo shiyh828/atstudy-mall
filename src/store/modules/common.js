@@ -2,7 +2,7 @@ export default {
 	// 开启命名空间
 	namespaced : true,
 	state: {
-		// next_index:0;
+		nav_index:0,
 	},
 	// 同步方法  mutations和actions 相当于之前的methods
 	mutations: {

@@ -1,9 +1,9 @@
 import { createStore } from 'vuex'
 
-import website from '@/store/modules/website.js'
+import common from './modules/common.js'
 
 export default createStore({
   modules: {
-	  website,
+	  common,
   }
 })
