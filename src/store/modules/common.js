@@ -4,7 +4,7 @@ export default {
 	state: {
 		nav_index:0,
 	},
-	// 同步方法  mutations和actions 相当于之前的methods
+	// 同步方法
 	mutations: {
 		// 不耗时的方法都放到这里面
 	},

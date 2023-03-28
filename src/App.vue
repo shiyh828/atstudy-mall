@@ -1,6 +1,7 @@
 <template>
 	<div id="nav">
 		<Navbar></Navbar>
+		<Search></Search>
 		<router-view></router-view>
 		<Footer></Footer>
 	</div>
@@ -9,13 +10,16 @@
 
 <script>
 	import Navbar from './components/Navbar.vue'
+	import Search from './components/Search.vue'
 	import Footer from './components/Footer.vue'
+	
 	
 	export default {
 
 		components: {
 			Navbar,
-			Footer
+			Footer,
+			Search,
 
 		}
 	}
