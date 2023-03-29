@@ -2,14 +2,16 @@
 	<!-- 筛选块 -->
 	<div class="container pt-5 d-flex">
 		<div class="w-17">
-			<img src="../assets/atstudy-logo.png" width="140">
+			<router-link  to="/home" @click="clicked_img(0)">
+				<img src="../assets/atstudy-logo.png" width="140">
+			</router-link>
 		</div>
 		<div class="px-4 d-flex flex-column w-66">
 			<div class="text-sm d-flex justify-content-center">
 				<input class="px-3 py-2 border-red rounded-left outline-none" style="width:420px;" type="text"
 					placeholder="商品名称、品牌、分类、规格属性" />
-				<button class="px-3 bg-red border-red rounded-right text-white" type="button">搜索</button>
-				<button class="ml-5 px-5 bg-white border-gray rounded text-red" type="button">我的购物车</button>
+				<button class="px-3 bg-red border-red rounded-right text-white hand" type="button">搜索</button>
+				<button class="ml-5 px-5 bg-white border-gray rounded text-red hand" type="button">我的购物车</button>
 			</div>
 			<div class="text-xs p-2 d-flex">
 				<div class="text-red pr-3">
@@ -85,6 +87,21 @@
 </template>
 
 <script>
+	import {
+		mapState
+	} from 'vuex'
+	
+	export default {
+		computed: {
+			...mapState(["common"])
+		},
+		methods:{
+			// 点击图片切换 路由 但是头部nav_index必须同步变化
+			clicked_img(index){
+				this.common.nav_index = index;
+			}
+		}
+	}
 </script>
 
 <style>

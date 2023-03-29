@@ -1,8 +1,8 @@
 <template>
 	<div class="bg-gray">
 		<div class="container py-1 px-2 text-xs d-flex align-items-center">
-			<router-link to="/" @click="nav_click(0)" :class="{'text-red':common.nav_index == 0,'text-muted':common.nav_index != 0}" 
-				class="px-4 text-lg mr-auto text-decoration-none text-hover-red">
+			<router-link to="/home" @click="nav_click(0)" :class="{'text-red':common.nav_index == 0,'text-muted':common.nav_index != 0}" 
+				class="px-4 text-lg mr-auto text-decoration-none text-hover-red hand">
 				学掌门商城
 			</router-link>
 			<router-link to="/login" @click="nav_click(1)" :class="{'text-red':common.nav_index == 1,'text-muted':common.nav_index != 1}"

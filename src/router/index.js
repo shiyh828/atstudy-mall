@@ -1,4 +1,5 @@
 import {createRouter,createWebHistory} from 'vue-router'
+//头部导航路由
 import Home from '../views/Home.vue'
 import Login from '../views/Login.vue'
 import Regist from '../views/Regist.vue'
@@ -9,10 +10,18 @@ import Customer from '../views/Customer.vue'
 import Website from '../views/Website.vue'
 import Atstudy from '../views/Atstudy.vue'
 
+// 跳转路由
+import SpuList from '../views/SpuList.vue'
+
 const routes = [{
 		path: '/',
 		name: 'Home',
 		component: Home
+	},
+	{
+		path: '/home',
+		redirect: '/',//重定向到 home，点击图片跳到首页home===/home
+		
 	},
 	{
 		path: '/login',
@@ -54,6 +63,12 @@ const routes = [{
 		name: 'Atstudy',
 		component: Atstudy
 	},
+	{
+		path: '/spulist',
+		name: 'SpuList',
+		component: SpuList
+	},
+	
 ]
 
 const router = createRouter({

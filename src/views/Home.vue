@@ -25,11 +25,14 @@
 									 	{{mid.cate_name}}>
 									 </div>
 									<div class="d-flex flex-wrap w-90">
-										<div class="pl-2 pb-2 hand text-hover-red"
-										v-for="small of mid.children"
-										:key="'small'+small.cate_id">
+										<router-link  to="/spulist"
+											class="pl-2 pb-2 text-decoration-none text-muted text-hover-red hand"
+											:class="{'text-red': product.selected_category_small == small}"
+											v-for="small of mid.children"
+											:key="'small'+small.cate_id"
+											@click="smallCategoryClicked(small)">
 											{{small.cate_name}}
-										</div>
+										</router-link>
 										
 									</div>
 									
@@ -79,7 +82,8 @@
 			}
 		},
 		computed:{
-			...mapState(["product"])
+			...mapState(["product"]),
+			
 		},
 		methods:{
 			...mapActions({
@@ -88,12 +92,12 @@
 			}),
 			...mapMutations({
 				'bigCateHover': 'product/big_cate_hover',
-			})
+				'smallCategoryClicked':'product/small_category_click',
+			}),
 			
 		},
 		mounted() {
 			this.getCategoryList();
-			
 			
 			
 			// axios.get('/api/brand?cate_id=1916')
