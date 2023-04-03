@@ -38,9 +38,8 @@ export default {
 			// 重新调用获取商品的方法
 			this.dispatch('product/get_Spu_List');
 		},
-		//点击分类属性列表选择 
-		sku_attr_click(context,payload){
-			
+		//点击属性列表筛选 
+		attr_click(context,payload){
 			//先清空下面的商品列表
 			context.spu_list = [];
 			// 每次点击先将之前筛选属性值置空

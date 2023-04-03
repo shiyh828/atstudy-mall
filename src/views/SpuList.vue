@@ -28,14 +28,14 @@
 				</div>
 				<div class="w-85">
 					<span class="pl-3" 
-						@click="skuClicked({'index' : index,'attr' : undefined})"
+						@click="attrClicked({'index' : index,'attr' : undefined})"
 						:class="{'text-red':product.selected_attr_list[index] == undefined}">
 						全部</span>
 					<span class="pl-3" 
 						v-for="spuAttr of attr.spuAttrValueList"
 						:key="'spuAttr'+spuAttr.id"
 						:class="{'text-red':product.selected_attr_list[index] == spuAttr}"
-						@click="skuClicked({'index' : index,'attr' : spuAttr})">{{spuAttr.value_name}}</span>
+						@click="attrClicked({'index' : index,'attr' : spuAttr})">{{spuAttr.value_name}}</span>
 				</div>
 			</div>
 
@@ -68,7 +68,7 @@
 			}),
 			...mapMutations({
 				'cateClicked':'product/small_category_click',
-				'skuClicked':'product/sku_attr_click',
+				'attrClicked':'product/attr_click',
 			})
 			
 		},
