@@ -1,64 +1,85 @@
 <template>
 	<!-- 商品列表页 -->
-	<!-- <h2 v-if="product.selected_category_small != undefined">
-		商品分类 ：{{product.selected_category_small.cate_name}}
-	</h2> -->
 	<div>
-		<div class="container box-shadow rounded text-muted text-sm py-4"  
-			v-if="product.selected_category_small != undefined">
-				<div class="w-100 d-flex py-1">
-					<div class="w-15" align="right">
-						商品分类：
-					</div>
-					<div class="w-85">
-						<span class="pl-3">全部</span>
-						<span class="pl-3 text-red">{{product.selected_category_small.cate_name}}</span>
-					</div>
+		<div class="container box-shadow rounded text-muted text-sm py-4"
+			>
+			<div class="w-100 d-flex py-1">
+				<div class="w-15" align="right">
+					商品分类：
 				</div>
-				<div class="w-100 d-flex py-1"
-					v-for="attr of product.selected_attr_list"
-					:key="'attr'+attr.key_id">
-					<div class="w-15" align="right">
-						{{attr.key_name}}：
-					</div>
-					<div class="w-85">
-						<span class="pl-3 text-red">全部</span>
+				<div class="w-85">
+					<span class="pl-3" 
+						@click="cateClicked(undefined)"
+						:class="{'text-red':product.selected_category_small == undefined}" 
+						>全部</span>
 						<span class="pl-3"
-							v-for="spuAttr of attr.spuAttrValueList"
-							:key="'spuAttr'+spuAttr.id">{{spuAttr.value_name}}</span>
+							v-for="cate of product.selected_category_list"
+							:key="'cate' + cate.cate_id"
+							:class="{'text-red':product.selected_category_small != undefined && product.selected_category_small.cate_id == cate.cate_id}"
+							@click="cateClicked(cate)">{{cate.cate_name}}</span>	
+						
 					</div>
+			</div>
+			<div class="w-100 d-flex py-1" 
+				v-for="(attr,index) of product.attr_list"
+				:key="'attr'+attr.key_id">
+				<div class="w-15" align="right">
+					{{attr.key_name}}：
 				</div>
-			
+				<div class="w-85">
+					<span class="pl-3" 
+						@click="skuClicked({'index' : index,'attr' : undefined})"
+						:class="{'text-red':product.selected_attr_list[index] == undefined}">
+						全部</span>
+					<span class="pl-3" 
+						v-for="spuAttr of attr.spuAttrValueList"
+						:key="'spuAttr'+spuAttr.id"
+						:class="{'text-red':product.selected_attr_list[index] == spuAttr}"
+						@click="skuClicked({'index' : index,'attr' : spuAttr})">{{spuAttr.value_name}}</span>
+				</div>
+			</div>
+
 		</div>
-		
+		<SpuList :data="product.spu_list"></SpuList>	
 	</div>
 </template>
 
 <script>
-	import {mapState, mapActions} from 'vuex'
+	import {
+		mapState,
+		mapActions,
+		mapMutations
+	} from 'vuex'
+	import SpuList from '../components/SpuList.vue'
 	
 	export default {
 		data() {
-			return{
+			return {
 				// selected_cate:undefined,//当不稳定时可存在localStorage里面
 			}
 		},
-		computed:{
+		computed: {
 			...mapState(['product'])
 		},
-		methods:{
+		methods: {
 			...mapActions({
-				'getAttrList':'product/get_Attr_List',
-				'getSpuList':'product/get_Spu_List',
+				'getAttrList': 'product/get_Attr_List',
+				'getSpuList': 'product/get_Spu_List',	
+			}),
+			...mapMutations({
+				'cateClicked':'product/small_category_click',
+				'skuClicked':'product/sku_attr_click',
 			})
-		},
-		mounted(){
-			this.getAttrList()
-			if(this.product.selected_category_small != undefined){
-				this.getSpuList()
-			}
 			
-		
+		},
+		mounted() {
+			this.getAttrList()
+			if (this.product.selected_category_small != undefined) {
+				this.getSpuList()	
+			}
+		},
+		components: {
+			SpuList
 		}
 	}
 </script>

@@ -518,7 +518,11 @@
 	.border-red {
 		border: 1px solid #e33;
 	}
-
+	
+	.border-reded {
+		border: 2px solid #e33;
+	}
+	
 	.border-blue {
 		border: 1px solid #99c;
 	}
@@ -623,6 +627,10 @@
 
 	.w-17 {
 		width: 17%;
+	}
+	
+	.w-18 {
+		width: 18%;
 	}
 
 	.w-20 {

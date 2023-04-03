@@ -25,7 +25,7 @@
 									 	{{mid.cate_name}}>
 									 </div>
 									<div class="d-flex flex-wrap w-90">
-										<router-link  to="/spulist"
+										<router-link to="/spulist"
 											class="pl-2 pb-2 text-decoration-none text-muted text-hover-red hand"
 											:class="{'text-red': product.selected_category_small == small}"
 											v-for="small of mid.children"

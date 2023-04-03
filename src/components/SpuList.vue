@@ -1,0 +1,24 @@
+<template>
+	<div class="container d-flex flex-wrap">
+		<spu class="w-17"
+			v-for="spu of  data"
+			:key="'spu' +  spu.spu_id"
+			:data="spu"></spu>
+	</div>
+	
+</template>
+
+<script>
+	import Spu from './Spu.vue'
+	
+	export default {
+		props:['data'],
+		components: {
+			Spu
+		}
+	}
+	
+</script>
+
+<style>
+</style>
