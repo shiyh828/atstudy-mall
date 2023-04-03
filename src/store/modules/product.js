@@ -35,6 +35,8 @@ export default {
 		// 三级分类点击
 		small_category_click(context,payload){
 			context.selected_category_small = payload;
+			// 重新调用获取商品的方法
+			this.dispatch('product/get_Spu_List');
 		},
 		//点击分类属性列表选择 
 		sku_attr_click(context,payload){
