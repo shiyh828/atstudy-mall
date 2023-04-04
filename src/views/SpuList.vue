@@ -1,8 +1,7 @@
 <template>
 	<!-- 商品列表页 -->
 	<div>
-		<div class="container box-shadow rounded text-muted text-sm py-4"
-			>
+		<div class="container box-shadow rounded text-muted text-sm py-4">
 			<div class="w-100 d-flex py-1">
 				<div class="w-15" align="right">
 					商品分类：
@@ -12,13 +11,13 @@
 						@click="cateClicked(undefined)"
 						:class="{'text-red':product.selected_category_small == undefined}" 
 						>全部</span>
-						<span class="pl-3"
-							v-for="cate of product.selected_category_list"
-							:key="'cate' + cate.cate_id"
-							:class="{'text-red':product.selected_category_small != undefined && product.selected_category_small.cate_id == cate.cate_id}"
-							@click="cateClicked(cate)">{{cate.cate_name}}</span>	
+					<span class="pl-3"
+						v-for="cate of product.selected_category_list"
+						:key="'cate' + cate.cate_id"
+						:class="{'text-red':product.selected_category_small != undefined && product.selected_category_small.cate_id == cate.cate_id}"
+						@click="cateClicked(cate)">{{cate.cate_name}}</span>	
 						
-					</div>
+				</div>
 			</div>
 			<div class="w-100 d-flex py-1" 
 				v-for="(attr,index) of product.attr_list"
@@ -72,10 +71,11 @@
 			})
 			
 		},
-		mounted() {
-			this.getAttrList()
+		mounted() { 
 			if (this.product.selected_category_small != undefined) {
-				this.getSpuList()	
+				this.getAttrList()	//获取属性列表，不需要spulist在选中三级时会调用一次，不需多次请求造成pending	
+			}else{
+				this.$router.push("/")//没有点击获取数据跳回首页
 			}
 		},
 		components: {

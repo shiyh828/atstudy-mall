@@ -4,7 +4,7 @@
 			<img width="200"
 			:src="'http://localhost:8001/img/' + selected_img" >
 		</div>
-		<div class="d-flex pt-4">
+		<div class="d-flex pt-4 overflow-hidden" style="width: 180px;">
 			<img width="30" class="mr-1 border-gray"
 				v-for="attrValue of data.attrKeyList[0].attrValueList"
 				:key="'attrValue'+attrValue.value_id"
