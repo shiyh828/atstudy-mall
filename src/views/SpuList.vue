@@ -72,15 +72,18 @@
 			
 		},
 		mounted() { 
+			this.getAttrList()	//获取属性列表
+			// this.product.selected_category_list = []
 			if (this.product.selected_category_small != undefined) {
-				this.getAttrList()	//获取属性列表，不需要spulist在选中三级时会调用一次，不需多次请求造成pending	
+				this.getSpuList()	
 			}else{
 				this.$router.push("/")//没有点击获取数据跳回首页
 			}
 		},
 		components: {
 			SpuList
-		}
+		},
+	
 	}
 </script>
 

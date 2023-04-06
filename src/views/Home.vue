@@ -68,27 +68,33 @@
 
 		</div>
 		<!--商品数展示 -->
-
+		<div class="container">
+			<SpuList 
+				v-for="(special_spu,index) of product.special_spu_list"
+				:key="'special_spu'+index"
+				:data="special_spu.data">{{special_spu.categoryList[0].cate_name}} 专场</SpuList>
+		</div>
 	</div>
 </template>
 
 <script>
-	import {mapState, mapActions,mapMutations} from 'vuex'
+	import {mapState,mapActions,mapMutations} from 'vuex'
 	// import axios from 'axios'
+	import SpuList from "../components/SpuList.vue"
+	
 	export default {
 		data() {
 			return {
 				carouselList: [1, 2, 3, 4, 5],
 			}
 		},
-		computed:{
-			...mapState(["product"]),
-			
+		computed: {
+			...mapState(['product'])
 		},
 		methods:{
 			...mapActions({
 				'getCategoryList': 'product/get_category_list',
-				
+				'getSpecialSpuList':'product/get_special_spulist'
 			}),
 			...mapMutations({
 				'bigCateHover': 'product/big_cate_hover',
@@ -98,13 +104,16 @@
 		},
 		mounted() {
 			this.getCategoryList();
-			
+			this.getSpecialSpuList();
 			
 			// axios.get('/api/brand?cate_id=1916')
 			// .then(response=>{
 			// 	console.log(response);
 			// })
 		},
+		components:{
+			SpuList,
+		},	
 		
 
 

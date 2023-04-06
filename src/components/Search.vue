@@ -9,8 +9,9 @@
 		<div class="px-4 d-flex flex-column w-66">
 			<div class="text-sm d-flex justify-content-center">
 				<input class="px-3 py-2 border-red rounded-left outline-none" style="width:420px;" type="text"
-					placeholder="商品名称、品牌、分类、规格属性" />
-				<button class="px-3 bg-red border-red rounded-right text-white hand" type="button">搜索</button>
+					placeholder="商品名称、品牌、分类、规格属性" v-model="product.searchSpuInput"/>
+				<button class="px-3 bg-red border-red rounded-right text-white hand" type="button"
+					@click="searchSpuBtn()">搜索</button>
 				<button class="ml-5 px-5 bg-white border-gray rounded text-red hand" type="button">我的购物车</button>
 			</div>
 			<div class="text-xs p-2 d-flex">
@@ -88,18 +89,23 @@
 
 <script>
 	import {
-		mapState
+		mapState,
+		mapMutations
 	} from 'vuex'
 	
 	export default {
 		computed: {
-			...mapState(["common"])
+			...mapState(['common','product'])
 		},
 		methods:{
 			// 点击图片切换 路由 但是头部nav_index必须同步变化
 			clicked_img(index){
 				this.common.nav_index = index;
-			}
+			},
+			...mapMutations({
+				'searchSpuBtn':'product/search_spu_list',
+				
+			})
 		}
 	}
 </script>

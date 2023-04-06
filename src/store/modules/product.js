@@ -26,6 +26,11 @@ export default {
 		start:0,//商品列表起始
 		length:15,//获取的商品列表数目
 		
+		//index专场数据
+		special_spu_list:[],//专场数据
+		special_cate_id:[130,34,20,219],//专场id数组
+		// search.vue
+		searchSpuInput:"",//搜索输入的值
 	},
 	// 同步方法
 	mutations: {
@@ -57,7 +62,15 @@ export default {
 			// 重新调用获取商品的方法   
 			this.dispatch('product/get_Spu_List')	
 			
-		}	
+		},
+		
+		//search.vue搜索按钮
+		search_spu_list(context,payload){
+			console.log('context',context)
+			console.log('payload',payload)
+		},
+		
+		
 	},
 	// 异步方法
 	actions: {
@@ -93,7 +106,6 @@ export default {
 		
 		// get_Spu_List
 		get_Spu_List(context){
-			
 			getSpuList({
 				spu_name: context.state.keyWord == '' ? '' : context.state.keyWord, //商品名称
 				spu_title: '', //商品标题
@@ -105,8 +117,9 @@ export default {
 										
 			}).then(response => {
 				context.state.spu_list = [];  //先清空商品列表
-				
+				context.state.selected_category_list = [];//先清空之前选择的
 				console.log('get_Spu_List',response.data)
+				
 				//商品列表展示
 				context.state.spu_list =response.data.data;
 				//商品分类信息
@@ -116,6 +129,27 @@ export default {
 				
 			})	
 		},
+		
+		//专场列表
+		get_special_spulist(context){
+			for(let i = 0;i < context.state.special_cate_id.length;  i++){
+				getSpuList({
+					spu_name: context.state.keyWord == '' ? '' : context.state.keyWord, //商品名称
+					spu_title: '', //商品标题
+					spu_status: 1, //商品状态（1：上架，0：下架）
+					cate_id: context.state.special_cate_id[i], //所属分类编号(三级)
+					valueList:'', //商品属性值列表
+					start: 0, //查询起始记录索引（分页）0
+					length: 5 //查询记录数量（分页）5
+											
+				}).then(response=>{
+					context.state.special_spu_list[i]=response.data;
+				})
+			}
+			console.log('special_spu_list',context.state.special_spu_list)
+				
+		},
+			
 		
 		// getCategory：查询单个分类的方法
 		get_category(context,payload){
@@ -127,5 +161,6 @@ export default {
 				context.state.category_list = response.data.data;
 			})		
 		}
+	
 	},
 }
