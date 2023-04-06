@@ -30,7 +30,8 @@ export default {
 		special_spu_list:[],//专场数据
 		special_cate_id:[130,34,20,219],//专场id数组
 		// search.vue
-		searchSpuInput:"",//搜索输入的值
+		keyWord:'',
+		
 	},
 	// 同步方法
 	mutations: {
@@ -65,9 +66,11 @@ export default {
 		},
 		
 		//search.vue搜索按钮
-		search_spu_list(context,payload){
-			console.log('context',context)
-			console.log('payload',payload)
+		search_spu_list(context){
+			context.spu_list = []
+			context.selected_attr_str_list = ''
+	
+			this.dispatch('product/get_Spu_List')
 		},
 		
 		
@@ -143,7 +146,7 @@ export default {
 					length: 5 //查询记录数量（分页）5
 											
 				}).then(response=>{
-					context.state.special_spu_list[i]=response.data;
+					context.state.special_spu_list[i]= response.data;
 				})
 			}
 			console.log('special_spu_list',context.state.special_spu_list)

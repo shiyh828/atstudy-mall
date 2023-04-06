@@ -9,7 +9,7 @@
 		<div class="px-4 d-flex flex-column w-66">
 			<div class="text-sm d-flex justify-content-center">
 				<input class="px-3 py-2 border-red rounded-left outline-none" style="width:420px;" type="text"
-					placeholder="商品名称、品牌、分类、规格属性" v-model="product.searchSpuInput"/>
+					placeholder="商品名称、品牌、分类、规格属性" v-model="product.keyWord"/>
 				<button class="px-3 bg-red border-red rounded-right text-white hand" type="button"
 					@click="searchSpuBtn()">搜索</button>
 				<button class="ml-5 px-5 bg-white border-gray rounded text-red hand" type="button">我的购物车</button>

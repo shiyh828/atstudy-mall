@@ -72,7 +72,7 @@
 			<SpuList 
 				v-for="(special_spu,index) of product.special_spu_list"
 				:key="'special_spu'+index"
-				:data="special_spu.data">{{special_spu.categoryList[0].cate_name}} 专场</SpuList>
+				:data="special_spu?special_spu.data:undefined">{{special_spu?special_spu.categoryList[0].cate_name:undefined}} 专场</SpuList>
 		</div>
 	</div>
 </template>

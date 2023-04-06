@@ -1,7 +1,7 @@
 <template>
-	<div class="mt-5 py-2 px-4 rounded-right-xl border-light border-right-dark" style="width: 120px;">
-		<slot></slot>
-	</div>
+	
+	<slot class="mt-5 py-2 px-4 rounded-right-xl border-light border-right-dark" style="width: 120px;"></slot>
+	
 	
 	<div class="container d-flex flex-wrap">
 		<spu class="w-17"
