@@ -12,6 +12,7 @@ import Atstudy from '../views/Atstudy.vue'
 
 // 跳转路由
 import SpuList from '../views/SpuList.vue'
+import SpuDet from  '../views/SpuDet.vue'
 
 const routes = [{
 		path: '/',
@@ -67,6 +68,11 @@ const routes = [{
 		path: '/spulist',
 		name: 'SpuList',
 		component: SpuList
+	},
+	{
+		path: '/spudet',
+		name: 'SpuDet',
+		component: SpuDet
 	},
 	
 ]

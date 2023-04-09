@@ -7,11 +7,11 @@
 					商品分类：
 				</div>
 				<div class="w-85">
-					<span class="pl-3" 
+					<span class="pl-3 hand" 
 						@click="cateClicked(undefined)"
 						:class="{'text-red':product.selected_category_small == undefined}" 
 						>全部</span>
-					<span class="pl-3"
+					<span class="pl-3 hand"
 						v-for="cate of product.selected_category_list"
 						:key="'cate' + cate.cate_id"
 						:class="{'text-red':product.selected_category_small != undefined && product.selected_category_small.cate_id == cate.cate_id}"
@@ -26,11 +26,11 @@
 					{{attr.key_name}}：
 				</div>
 				<div class="w-85">
-					<span class="pl-3" 
+					<span class="pl-3 hand" 
 						@click="attrClicked({'index' : index,'attr' : undefined})"
 						:class="{'text-red':product.selected_attr_list[index] == undefined}">
 						全部</span>
-					<span class="pl-3" 
+					<span class="pl-3 hand" 
 						v-for="spuAttr of attr.spuAttrValueList"
 						:key="'spuAttr'+spuAttr.id"
 						:class="{'text-red':product.selected_attr_list[index] == spuAttr}"

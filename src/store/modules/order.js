@@ -11,5 +11,10 @@ export default {
 	// 异步方法
 	actions: {
 		// 例如耗时的ajax请求都放在这里面
+		//加入购物车
+		add_cart_click(context){
+			console.log('addcart',context.rootState.product)
+			
+		}
 	},
 }
