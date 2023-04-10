@@ -5,6 +5,7 @@ import customer from './modules/customer.js'
 import order from './modules/order.js'
 import product from './modules/product.js'
 
+
 export default createStore({
   modules: {
 	  common,

@@ -2,14 +2,14 @@
 
 	<div v-if="product.spuDetail.attrKeyList.length > 0" class="container d-flex justify-content-around">
 		<div class="w-40">
-			<img width="480" :src="'http://localhost:8001/img/'+ product.selected_img">
+			<img width="460" :src="'http://localhost:8001/img/'+ product.selected_img">
 			<div class="d-flex justify-content-around align-items-center">
 				<div class="text-xxl" @click="leftClick()">
 					&lt;
 				</div>
 				<div class="overflow-hidden" style="width: 400px;">
 					<div class="d-flex" :style="{ marginLeft : -100 * index +'px' }">
-						<img width="80" class=" m-1 p-1"
+						<img width="84" class=" m-1 p-1"
 							v-for="(img,imgInex) of  product.spuDetail.attrKeyList[0].attrValueList[product.color_index].value_images"
 							:key="'img' + imgInex" :class="{'border-reded' : img == product.selected_img}"
 							@click="imgClick(img)" :src="'http://localhost:8001/img/'+ img" />
@@ -51,7 +51,7 @@
 			</div>
 			
 			<div class="pb-5 text-bold text-muted d-flex">
-				<div class="pr-5 text-lg mr-5">版本</div>
+				<div class="pr-5 text-lg mr-5" style="width:50px">版本</div>
 				<div class="d-flex">
 					<div class="mr-2 p-2 border-gray text-sm rounded"
 						v-for="(version,ver_index) of product.spuDetail.attrKeyList[1].attrValueList" :key="'version'+ version.value_id"

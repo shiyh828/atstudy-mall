@@ -5,9 +5,9 @@
 				class="px-4 text-lg mr-auto text-decoration-none text-hover-red hand">
 				学掌门商城
 			</router-link>
-			<router-link to="/login" @click="nav_click(1)" :class="{'text-red':common.nav_index == 1,'text-muted':common.nav_index != 1}"
+			<router-link to="/login" @click="nav_click(1)" :class="{'text-red':common.nav_index == 1 || customer.userInfo != undefined,'text-muted':common.nav_index != 1}"
 				class="px-2 border-right-dark line-height-12 text-decoration-none text-hover-red">
-				你好，请登录
+				{{customer.userInfo != undefined?customer.userInfo.user_name:'你好，请登录'}}
 			</router-link>
 			<router-link to="/regist" @click="nav_click(2)" :class="{'text-red':common.nav_index == 2,'text-muted':common.nav_index != 2}"
 				class="px-2 border-right-dark line-height-12 text-decoration-none text-hover-red">
@@ -51,7 +51,7 @@
 	export default {
 		computed: {
 			// 将 仓库中的state状态数据 映射 到本地Vue实例中 computed 计算属性
-			...mapState(["common"])
+			...mapState(["common","customer"])
 		},
 		methods:{
 			nav_click(index){

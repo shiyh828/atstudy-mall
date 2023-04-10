@@ -27,7 +27,7 @@ const request = axios.create({
 // 配置请求拦截器
 request.interceptors.request.use( config =>{
 	// 发送请求的时候，再请求头中添加上token
-	config.headers.Authorization = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNCIsImV4cCI6MTY3NzY1NzM3MiwiaWF0IjoxNjc3NjU1OTMyfQ.kvrw4U30_pdF2ou4wJyf3lUELudXRXbrlvWhgMq9bbs'
+	config.headers.Authorization = localStorage.getItem('token');
 	// 返回配置对象
 	return config
 } )

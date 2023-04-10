@@ -9,6 +9,8 @@ import Address from '../views/Address.vue'
 import Customer from '../views/Customer.vue'
 import Website from '../views/Website.vue'
 import Atstudy from '../views/Atstudy.vue'
+import Error from '../views/Error.vue'
+
 
 // 跳转路由
 import SpuList from '../views/SpuList.vue'
@@ -73,6 +75,11 @@ const routes = [{
 		path: '/spudet',
 		name: 'SpuDet',
 		component: SpuDet
+	},
+	{
+		path: '/error',
+		name: 'Error',
+		component: Error
 	},
 	
 ]
