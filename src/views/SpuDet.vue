@@ -82,7 +82,10 @@
 				<button class='bg-red text-white border-0 py-1 px-3 mx-3'>立即购买</button>
 			</div>
 		</div>
-
+		
+	</div>
+	<div class="container text-center mt-7">
+		<img src="../assets/spu_introduce_01.jpg" width="1000">
 	</div>
 </template>
 

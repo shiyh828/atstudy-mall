@@ -7,7 +7,7 @@
 			</router-link>
 			<router-link to="/login" @click="nav_click(1)" :class="{'text-red':common.nav_index == 1 || customer.userInfo != undefined,'text-muted':common.nav_index != 1}"
 				class="px-2 border-right-dark line-height-12 text-decoration-none text-hover-red">
-				{{customer.userInfo != undefined?customer.userInfo.user_name:'你好，请登录'}}
+				你好，{{customer.userInfo != undefined?customer.userInfo.user_name:'请登录'}}
 			</router-link>
 			<router-link to="/regist" @click="nav_click(2)" :class="{'text-red':common.nav_index == 2,'text-muted':common.nav_index != 2}"
 				class="px-2 border-right-dark line-height-12 text-decoration-none text-hover-red">
@@ -57,6 +57,9 @@
 			nav_click(index){
 				this.common.nav_index = index;
 			}
+		},
+		mounted(){
+			this.customer.userInfo = JSON.parse(localStorage.getItem("user_info"))
 		}
 	}
 </script>

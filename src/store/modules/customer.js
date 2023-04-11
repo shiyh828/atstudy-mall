@@ -2,6 +2,8 @@ import {
 	regist,
 	login,
 	getUserInfo,
+	getUserAddress,
+	deleteUserAddress,
 } from '../../data/customer.js'
 import router from '@/router'
 export default {
@@ -19,6 +21,8 @@ export default {
 		username: '', //用户名需要输入手机号
 		password: '' ,//密码
 		userInfo:undefined,//用户信息
+		
+		addressList:[],//用户收货地址信息列表 
 	},
 	// 同步方法
 	mutations: {
@@ -85,8 +89,29 @@ export default {
 				console.log('context.state.userInfo',context.state.userInfo)
 			
 			})
-		}
-	
-	
+		},
+		// 获得用户收获信息
+		get_user_address(context){
+			console.log(context)
+			getUserAddress().then(response=>{
+				console.log(response.data)
+				context.state.addressList = response.data.data
+				
+			})
+		},
+		//删除收货信息
+		delete_user_address(context,payload){
+			deleteUserAddress(payload).then(response=>{
+				if(response.data.httpcode == 200){
+					alert("删除成功");
+					this.dispatch('customer/get_user_address')
+				}else{
+					alert("删除失败:${response.data.message}")
+					
+				}
+			})
+		},
+		// 添加收货信息
+		
 	},
 }
