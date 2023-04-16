@@ -4,6 +4,9 @@ import {
 	getUserInfo,
 	getUserAddress,
 	deleteUserAddress,
+	getChina,
+	addUserAddress,
+	updateUserAddress,
 } from '../../data/customer.js'
 import router from '@/router'
 export default {
@@ -23,10 +26,32 @@ export default {
 		userInfo:undefined,//用户信息
 		
 		addressList:[],//用户收货地址信息列表 
+		
+		// 获得省市区列表
+		chinaList:[],
+		province: undefined,
+		city: undefined,
+		district: undefined,
+		isAddAddress:false, //是否添加
+		// 添加收货信息
+		uaddr_name:'',
+		uaddr_phone: "",
+		uaddr_province: "",
+		uaddr_city: "",
+		uaddr_district: "",
+		uaddr_address: "",
+		uaddr_isdefault: null,
+		isUpdateAddress:false,//是否修改
+		update_addr_id:'',//需要修改的id
+		
+		
 	},
 	// 同步方法
 	mutations: {
 		// 不耗时的方法都放到这里面
+		add_user_address(context){
+			context.isAddAddress = !context.isAddAddress;	
+		}
 	},
 	// 异步方法
 	actions: {
@@ -112,6 +137,40 @@ export default {
 			})
 		},
 		// 添加收货信息
-		
+		add_address(context){
+			addUserAddress({
+				uaddr_name:context.state.uaddr_name,
+				uaddr_phone: context.state.uaddr_phone,
+				uaddr_province: context.state.province.name,
+				uaddr_city: context.state.city.name,
+				uaddr_district: context.state.district.name,
+				uaddr_address: context.state.uaddr_address,
+				uaddr_isdefault: context.state.uaddr_isdefault,
+			}).then(res=>{
+				if(res.status == 200){
+					this.dispatch('customer/get_user_address')
+				}
+			})
+		},
+		// 获得省市区
+		get_China(context){
+			getChina().then(res=>{
+				context.state.chinaList = res.data.data;
+			})
+		},
+		// 修改收货信息
+		update_user_address(context,payload){
+			context.state.isUpdateAddress = !context.state.isUpdateAddress
+			context.state.update_addr_id = payload.id
+			console.log('修改收货信息context',context)
+			console.log('修改收货信息payload',payload)
+			updateUserAddress({
+				
+			}).then(res=>{
+				console.log('修改res',res)
+			})
+		}
+	
+	
 	},
 }
