@@ -40,18 +40,25 @@ export default {
 		uaddr_city: "",
 		uaddr_district: "",
 		uaddr_address: "",
-		uaddr_isdefault: null,
-		isUpdateAddress:false,//是否修改
-		update_addr_id:'',//需要修改的id
+		uaddr_isdefault: 0,
+		edit_address:undefined,//需要修改的id
 		
 		
 	},
 	// 同步方法
 	mutations: {
 		// 不耗时的方法都放到这里面
-		add_user_address(context){
+		is_add_address(context){
 			context.isAddAddress = !context.isAddAddress;	
-		}
+		},
+		is_update_address(context,payload){
+			context.edit_address = payload;
+			console.log(context.edit_address)
+		},
+		cancel_update_address(context){
+			context.edit_address = undefined;
+			console.log('确定取消',context.edit_address)
+		},
 	},
 	// 异步方法
 	actions: {
@@ -143,12 +150,14 @@ export default {
 				uaddr_phone: context.state.uaddr_phone,
 				uaddr_province: context.state.province.name,
 				uaddr_city: context.state.city.name,
-				uaddr_district: context.state.district.name,
+				uaddr_district: context.state.district?context.state.district.name:'',
 				uaddr_address: context.state.uaddr_address,
 				uaddr_isdefault: context.state.uaddr_isdefault,
 			}).then(res=>{
 				if(res.status == 200){
+					alert("添加成功，更新数据，关闭托盘")
 					this.dispatch('customer/get_user_address')
+					context.state.isAddAddress = !context.state.isAddAddress;
 				}
 			})
 		},
@@ -159,18 +168,24 @@ export default {
 			})
 		},
 		// 修改收货信息
-		update_user_address(context,payload){
-			context.state.isUpdateAddress = !context.state.isUpdateAddress
-			context.state.update_addr_id = payload.id
-			console.log('修改收货信息context',context)
-			console.log('修改收货信息payload',payload)
+		update_user_address(context){
 			updateUserAddress({
-				
+				uaddr_name:context.state.edit_address.uaddr_name,
+				uaddr_phone:context.state.edit_address.uaddr_phone,
+				uaddr_province:context.state.edit_address.uaddr_province,
+				uaddr_city:context.state.edit_address.uaddr_city,
+				uaddr_district:context.state.edit_address.uaddr_district,
+				uaddr_address:context.state.edit_address.uaddr_address,
+				uaddr_isdefault:context.state.edit_address.uaddr_isdefault,
+				uaddr_id:context.state.edit_address.uaddr_id
 			}).then(res=>{
-				console.log('修改res',res)
+				if(res.data.httpcode == 200){
+					alert("修改成功!关闭修改托盘")
+					context.state.edit_address = undefined;//关闭修改输入
+				}
 			})
 		}
-	
+		// 设置默认
 	
 	},
 }

@@ -28,6 +28,7 @@
 			<button class="py-1 px-4 mr-3 bg-green border-0 text-white rounded" @click="addAdress()" type="button">保存</button>
 			<button class="py-1 px-4 bg-red border-0 text-white rounded" @click="addUserAddress()" type="button">取消</button>
 		</div>
+	
 	</div>
 	
 </template>
