@@ -13,7 +13,7 @@
 			<!-- 添加框 -->
 			<div v-if="!customer.isAddAddress" class="w-40 box-shadow rounded p-4 mb-4 ml-3 text-center">
 				<div class="border-light" style="height:160px;font-size: 6rem;"
-					@click="isaddUserAddress()">
+					@click="isAddAddress()">
 					+
 				</div>
 			</div>
@@ -35,7 +35,8 @@
 		},
 		methods : {
 			...mapMutations({
-				'isAddAddress':'customer/is_add_address'
+				'isAddAddress':'customer/is_add_address',//点击加号
+				
 			}),
 			...mapActions({
 				'login':'customer/user_login',

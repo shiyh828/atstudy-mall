@@ -3,13 +3,15 @@
 		<input class="w-99 border-gray py-1 mb-1 outline-none" v-model="customer.uaddr_name" type="text" placeholder="请输入收货人姓名"/>
 		<input class="w-99 border-gray py-1 mb-2 outline-none" v-model="customer.uaddr_phone" type="text" placeholder="请输入收货人手机号码"/>
 		<div class="d-flex mb-2">
-			<select class="w-33 py-1 mr-1" v-model="customer.province">
+			<select class="w-33 py-1 mr-1" 
+				v-model="customer.province">
 				<option v-for="province of customer.chinaList" 
 					:key="'province'+province.id" 
 					:value="province">{{province.name}}</option>
 			</select>
 			<template v-if="customer.province != undefined">
-			<select class="w-33 py-1 mr-1" v-model="customer.city">
+			<select class="w-33 py-1 mr-1" 
+				v-model="customer.city">
 				<option v-for="city of customer.province.children" 
 					:key="'city'+city.id" 
 					:value="city">{{city.name}}</option>
@@ -25,8 +27,8 @@
 		</div>
 		<input class="w-99 border-gray py-1 mb-2 outline-none" v-model="customer.uaddr_address" type="text" placeholder="请输入收货人详细地址"/>
 		<div align="right">
-			<button class="py-1 px-4 mr-3 bg-green border-0 text-white rounded" @click="addAdress()" type="button">保存</button>
-			<button class="py-1 px-4 bg-red border-0 text-white rounded" @click="addUserAddress()" type="button">取消</button>
+			<button class="py-1 px-4 mr-3 bg-green border-0 text-white rounded" @click="addAdress()" type="button">保存添加</button>
+			<button class="py-1 px-4 bg-red border-0 text-white rounded" @click="cancelAddAddress()" type="button">取消添加</button>
 		</div>
 	
 	</div>
@@ -41,10 +43,11 @@
 		},
 		methods:{
 			...mapMutations({
-				'addUserAddress':'customer/add_user_address'
+				'cancelAddAddress':'customer/is_add_address',//是否取消添加
+				
 			}),
 			...mapActions({
-				'addAdress':'customer/add_address',
+				'addAdress':'customer/add_address',//添加保存
 				'getChina':'customer/get_China'
 			})
 		},

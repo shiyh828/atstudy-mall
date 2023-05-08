@@ -40,25 +40,30 @@ export default {
 		uaddr_city: "",
 		uaddr_district: "",
 		uaddr_address: "",
-		uaddr_isdefault: 0,
-		edit_address:undefined,//需要修改的id
+		uaddr_isdefault: undefined,//默认为0，其它为1或undefined
+		edit_address:undefined,//需要修改的address
 		
 		
 	},
 	// 同步方法
 	mutations: {
 		// 不耗时的方法都放到这里面
+		// 是否关闭添加托盘
 		is_add_address(context){
 			context.isAddAddress = !context.isAddAddress;	
 		},
+		// 编辑按钮
 		is_update_address(context,payload){
 			context.edit_address = payload;
 			console.log(context.edit_address)
 		},
+		// 取消修改
 		cancel_update_address(context){
 			context.edit_address = undefined;
 			console.log('确定取消',context.edit_address)
 		},
+		
+		
 	},
 	// 异步方法
 	actions: {
@@ -124,7 +129,6 @@ export default {
 		},
 		// 获得用户收获信息
 		get_user_address(context){
-			console.log(context)
 			getUserAddress().then(response=>{
 				console.log(response.data)
 				context.state.addressList = response.data.data
@@ -145,6 +149,7 @@ export default {
 		},
 		// 添加收货信息
 		add_address(context){
+			
 			addUserAddress({
 				uaddr_name:context.state.uaddr_name,
 				uaddr_phone: context.state.uaddr_phone,
@@ -157,6 +162,7 @@ export default {
 				if(res.status == 200){
 					alert("添加成功，更新数据，关闭托盘")
 					this.dispatch('customer/get_user_address')
+					
 					context.state.isAddAddress = !context.state.isAddAddress;
 				}
 			})
@@ -184,8 +190,47 @@ export default {
 					context.state.edit_address = undefined;//关闭修改输入
 				}
 			})
-		}
+		},
 		// 设置默认
-	
+		set_default_address(context,payload){
+			for(let i=0;i<context.state.addressList.length;i++){
+				if(context.state.addressList[i].uaddr_isdefault === 0 && context.state.addressList[i].uaddr_id === payload.uaddr_id){
+					alert("已经被设置为默认了，无需再设置！")
+				}else if(context.state.addressList[i].uaddr_isdefault === 0){
+					
+					// 先将之前设置为默认的取消
+					updateUserAddress({
+						uaddr_name:context.state.addressList[i].uaddr_name,
+						uaddr_phone:context.state.addressList[i].uaddr_phone,
+						uaddr_province:context.state.addressList[i].uaddr_province,
+						uaddr_city:context.state.addressList[i].uaddr_city,
+						uaddr_district:context.state.addressList[i].uaddr_district,
+						uaddr_address:context.state.addressList[i].uaddr_address,
+						uaddr_isdefault:context.state.uaddr_isdefault,
+						uaddr_id:context.state.addressList[i].uaddr_id
+					})	
+					
+				}else if(context.state.addressList[i].uaddr_id === payload.uaddr_id){
+					
+					updateUserAddress({
+						uaddr_name:context.state.addressList[i].uaddr_name,
+						uaddr_phone:context.state.addressList[i].uaddr_phone,
+						uaddr_province:context.state.addressList[i].uaddr_province,
+						uaddr_city:context.state.addressList[i].uaddr_city,
+						uaddr_district:context.state.addressList[i].uaddr_district,
+						uaddr_address:context.state.addressList[i].uaddr_address,
+						uaddr_isdefault:0,
+						uaddr_id:context.state.addressList[i].uaddr_id
+					
+					}).then(res=>{
+						if(res.data.httpcode == 200){
+							alert("设置默认成功！")
+							this.dispatch('customer/get_user_address')
+						}
+					})
+				}
+			}
+		},
+		// 结束
 	},
 }

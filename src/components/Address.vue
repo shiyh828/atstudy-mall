@@ -1,5 +1,6 @@
 <template>
 	<div class="w-40 box-shadow rounded p-4 mb-4 ml-3">
+		<!-- 列表展示 -->
 		<div v-if="data !== customer.edit_address">
 			<!-- 为0是 默认地址 -->
 			<div class="d-flex justify-content-between text-md text-bold ">
@@ -47,46 +48,45 @@
 				<div  class="w-70">
 					{{data.uaddr_phone}}
 				</div>
-				<div class="w-15 text-muted hand" align="right">
+				<div class="w-15 text-muted hand" align="right" @click="setDefaultAddress(data)">
 					设为默认
 				</div>
 			</div>
 						
 		</div>
+		<!-- 修改托盘 -->
 		<div v-if="data === customer.edit_address">
 			<input class="w-99 border-gray py-1 mb-1 outline-none" v-model="customer.edit_address.uaddr_name" type="text"/>
 			<input class="w-99 border-gray py-1 mb-2 outline-none" v-model="customer.edit_address.uaddr_phone" type="text"/>
 			<div class="d-flex mb-2">
-				<select class="w-33 py-1 mr-1" :value="customer.edit_address.uaddr_province" v-model="customer.edit_address.uaddr_province">
-					<option>{{customer.edit_address.uaddr_province}}</option>
+				<select class="w-33 py-1 mr-1"
+					v-model="customer.province">
 					<option v-for="province of customer.chinaList" 
 						:key="'province'+province.id" 
-						:value="province.name">{{province.name}}</option>
+						:value="province">{{province.name}}</option>
 				</select>
-				
-				<select class="w-33 py-1 mr-1" :value="customer.edit_address.uaddr_city" v-model="customer.edit_address.uaddr_city">
-					<option>{{customer.edit_address.uaddr_city}}</option>
-					<template v-if="customer.province != undefined">
-					<option v-for="city of customer.province.children" 
-						:key="'city'+city.id" 
-						:value="city.name">{{city.name}}</option>
-					</template>
-				</select>
-				
-				<select class="w-33 py-1" :value="customer.edit_address.uaddr_district" v-model="customer.edit_address.uaddr_district" align="right">
-					<option>{{customer.edit_address.uaddr_district}}</option>
-					<template v-if="customer.city != undefined">
-					<option v-for="district of customer.city.children"
-						:key="'district' + district.id"
-						:value="district.name">{{district.name}}</option>
-					</template>
-				</select>	
+				<template v-if="customer.province != undefined">
+					<select class="w-33 py-1 mr-1" 
+						v-model="customer.city">
+						<option v-for="city of customer.province.children" 
+							:key="'city'+city.id" 
+							:value="city">{{city.name}}</option>
+					</select>
+				</template>
+				<template v-if="customer.city != undefined">
+					<select class="w-33 py-1" align="right"
+						v-model="customer.district">
+						<option v-for="district of customer.city.children"
+							:key="'district' + district.id"
+							:value="district">{{district.name}}</option>
+					</select>
+				</template>	
 			</div>
 			
 			<input class="w-99 border-gray py-1 mb-2 outline-none" v-model="customer.edit_address.uaddr_address" type="text"/>
 			<div align="right">
-				<button class="py-1 px-4 mr-3 bg-green border-0 text-white rounded" @click="okUpdateUserAddress()" type="button">保存</button>
-				<button class="py-1 px-4 bg-red border-0 text-white rounded" @click="cancelUpdateAddress()" type="button">取消</button>
+				<button class="py-1 px-4 mr-3 bg-green border-0 text-white rounded" @click="okUpdateUserAddress()" type="button">保存修改</button>
+				<button class="py-1 px-4 bg-red border-0 text-white rounded" @click="cancelUpdateAddress()" type="button">取消修改</button>
 			</div>
 		</div>
 	</div>
@@ -104,13 +104,15 @@
 		methods : {
 			...mapMutations({
 				'isUpdateAddr':'customer/is_update_address',//点击编辑
-				'cancelUpdateAddress':'customer/cancel_update_address'//取消修改
+				'cancelUpdateAddress':'customer/cancel_update_address'//取消编辑
 			}),
 			...mapActions({
 				'deleteUserAddress':'customer/delete_user_address',//删除 ×号按钮
 				'okUpdateUserAddress':'customer/update_user_address',//保存修改
-				'getChina':'customer/get_China'
+				'getChina':'customer/get_China',//获得行政区域
+				'setDefaultAddress':'customer/set_default_address',//设置默认
 			}),
+			
 			
 		},
 		mounted() {
