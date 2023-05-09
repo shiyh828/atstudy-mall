@@ -11,8 +11,8 @@
 				<input class="px-3 py-2 border-red rounded-left outline-none" style="width:420px;" type="text"
 					placeholder="商品名称、品牌、分类、规格属性" v-model="product.keyWord"/>
 				<button class="px-3 bg-red border-red rounded-right text-white hand" type="button"
-					@click="searchSpuBtn()">搜索</button>
-				<button class="ml-5 px-5 bg-white border-gray rounded text-red hand" type="button">我的购物车</button>
+						@click="searchSpuBtn()">搜索</button>
+				<router-link to="/cart" class="ml-5 px-5 py-2 bg-white border-gray rounded text-red hand text-decoration-none">我的购物车</router-link>
 			</div>
 			<div class="text-xs p-2 d-flex">
 				<div class="text-red pr-3">

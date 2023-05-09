@@ -15,7 +15,6 @@ import router from '@/router'
 const request = axios.create({
 	// 设置基础的url路径
 	baseURL : "/api/",
-	
 	// 对请求参数 做统一的预先处理   适用 POST\PUT\PATCH\DELETE
 	transformRequest(data){
 		// 使用qs 组件 进行参数格式化

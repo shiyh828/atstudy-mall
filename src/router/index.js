@@ -16,6 +16,9 @@ import Error from '../views/Error.vue'
 import SpuList from '../views/SpuList.vue'
 import SpuDet from  '../views/SpuDet.vue'
 
+import Cart from '../components/Cart.vue'
+import Pay from '../components/Pay.vue'
+
 const routes = [{
 		path: '/',
 		name: 'Home',
@@ -80,6 +83,16 @@ const routes = [{
 		path: '/error',
 		name: 'Error',
 		component: Error
+	},
+	{
+		path: '/cart',
+		name: 'Cart',
+		component: Cart
+	},
+	{
+		path: '/pay',
+		name: 'Pay',
+		component: Pay
 	},
 	
 ]
