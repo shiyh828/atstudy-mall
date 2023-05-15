@@ -1,15 +1,16 @@
 <template>
 	<div class="container py-5">
-		<div class="d-flex flex-wrap" v-if="customer.addressList.length > 0">
+		<div class="d-flex flex-wrap">
 			<!--一个收货信息 -->
+			<template v-if="customer.addressList.length > 0">
+				<Address
+					v-for="addr of customer.addressList"
+					:key="'addr'+addr.uaddr_id"
+					:data="addr">
+					
+				</Address>
+			</template>
 			
-			<Address
-				v-for="addr of customer.addressList"
-				:key="'addr'+addr.uaddr_id"
-				:class="{'box-shadow-red':addr.uaddr_isdefault == 0}"
-				:data="addr">
-				
-			</Address>
 			<!-- 添加框 -->
 			<div v-if="!customer.isAddAddress" class="w-40 box-shadow rounded p-4 mb-4 ml-3 text-center">
 				<div class="border-light" style="height:160px;font-size: 6rem;"

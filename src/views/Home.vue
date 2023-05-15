@@ -68,10 +68,10 @@
 
 		</div>
 		<!--商品数展示 -->
-		<div class="container">
+		<div class="container" v-if="product.special_spu_list.length > 0">
 			<SpuList 
 				v-for="(special_spu,index) of product.special_spu_list"
-				:key="'special_spu'+index"
+				:key="'special_spu'+index+special_spu.categoryList[0].cate_id"
 				:data="special_spu?special_spu.data:undefined">{{special_spu?special_spu.categoryList[0].cate_name:undefined}} 专场</SpuList>
 		</div>
 	</div>

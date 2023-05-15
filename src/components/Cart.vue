@@ -35,7 +35,7 @@
 				</div>
 				<div class="w-10">￥{{order.cart_price}}</div>
 				<div class="w-15">
-					<input type="text" class="w-72 outline-none" :value="order.cart_count" @change="count_change($event.srcElement.value,order)">
+					<input type="text" class="w-72 outline-none"  :value="order.cart_count" @change="count_change($event.srcElement.value,order)">
 				</div>
 				<div class='w-15'>￥{{order.cart_price * order.cart_count}}</div>
 				<div class='w-15 hand' @click="delete_cart(order)">删除</div>
@@ -120,7 +120,7 @@ import {mapState,mapActions} from 'vuex'
 			}
 			
 		},
-		mounted() {
+		async mounted() {
 			this.getCart();
 		}
 	}

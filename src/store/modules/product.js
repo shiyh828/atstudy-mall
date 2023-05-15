@@ -4,6 +4,7 @@ import {
 	getSpuList,
 } from '../../data/product.js'
 
+import router from '@/router'
 export default {
 	// 开启命名空间
 	namespaced: true,
@@ -74,9 +75,16 @@ export default {
 		},
 		//search.vue搜索按钮
 		search_spu_list(context) {
+			console.log(context.keyWord)
+			router.push('/spulist')
+			if(router.currentRoute._value.name == "Home"){
+				context.small_category_click = undefined;
+				
+			}
+			// router.push('/spulist')
+			// console.log("keyword",context.keyWord)
 			context.spu_list = []
-			context.selected_attr_str_list = ''
-
+			
 			this.dispatch('product/get_Spu_List')
 		},
 		//点击进入商品详情页
@@ -198,8 +206,7 @@ export default {
 				spu_name: context.state.keyWord == '' ? '' : context.state.keyWord, //商品名称
 				spu_title: '', //商品标题
 				spu_status: 1, //商品状态（1：上架，0：下架）
-				cate_id: context.state.selected_category_small == undefined ? null : context.state
-					.selected_category_small.cate_id, //所属分类编号(三级)
+				cate_id: context.state.selected_category_small == undefined ? null : context.state.selected_category_small.cate_id, //所属分类编号(三级)
 				valueList: context.state.selected_attr_str, //商品属性值列表
 				start: context.state.start, //查询起始记录索引（分页）0
 				length: context.state.length //查询记录数量（分页）10
@@ -221,6 +228,7 @@ export default {
 
 		//专场列表
 		get_special_spulist(context) {
+			context.state.special_spu_list = []
 			for (let i = 0; i < context.state.special_cate_id.length; i++) {
 				getSpuList({
 					spu_name: context.state.keyWord == '' ? '' : context.state.keyWord, //商品名称
@@ -232,7 +240,7 @@ export default {
 					length: 5 //查询记录数量（分页）5
 
 				}).then(response => {
-					context.state.special_spu_list[i] = response.data;
+					context.state.special_spu_list.push(response.data);
 				})
 			}
 			console.log('special_spu_list', context.state.special_spu_list)

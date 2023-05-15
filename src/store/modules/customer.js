@@ -44,6 +44,8 @@ export default {
 		edit_address:undefined,//需要修改的address
 		
 		
+		default_address : undefined,		// 默认的收货地址，用于结算页面显示的地址
+		
 	},
 	// 同步方法
 	mutations: {
@@ -79,6 +81,7 @@ export default {
 						if (response.data.httpcode == 200) {
 							alert("注册成功")
 							router.push('/login')
+							context.rootState.common.nav_index = 1;
 						} else {
 							alert(response.data.message)
 							// 失败会默认进入刷新登陆路由
@@ -132,6 +135,12 @@ export default {
 			getUserAddress().then(response=>{
 				console.log(response.data)
 				context.state.addressList = response.data.data
+				for(let i=0;i<context.state.addressList.length;i++){
+						if(context.state.addressList[i].uaddr_isdefault === 0){
+							context.state.default_address = context.state.addressList[i];
+							break;
+						}
+				}
 				
 			})
 		},
@@ -195,9 +204,9 @@ export default {
 		set_default_address(context,payload){
 			for(let i=0;i<context.state.addressList.length;i++){
 				if(context.state.addressList[i].uaddr_isdefault === 0 && context.state.addressList[i].uaddr_id === payload.uaddr_id){
-					alert("已经被设置为默认了，无需再设置！")
+					alert("已经被设置为默认了，无需再设置！");
+					break;
 				}else if(context.state.addressList[i].uaddr_isdefault === 0){
-					
 					// 先将之前设置为默认的取消
 					updateUserAddress({
 						uaddr_name:context.state.addressList[i].uaddr_name,
@@ -211,7 +220,7 @@ export default {
 					})	
 					
 				}else if(context.state.addressList[i].uaddr_id === payload.uaddr_id){
-					
+					context.state.default_address = undefined;
 					updateUserAddress({
 						uaddr_name:context.state.addressList[i].uaddr_name,
 						uaddr_phone:context.state.addressList[i].uaddr_phone,
@@ -225,12 +234,15 @@ export default {
 					}).then(res=>{
 						if(res.data.httpcode == 200){
 							alert("设置默认成功！")
+							context.state.default_address = context.state.addressList[i];
 							this.dispatch('customer/get_user_address')
 						}
-					})
+					});
+					break;
 				}
 			}
 		},
 		// 结束
+		
 	},
 }

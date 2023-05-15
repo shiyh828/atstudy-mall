@@ -74,11 +74,8 @@
 		mounted() { 
 			this.getAttrList()	//获取属性列表
 			// this.product.selected_category_list = []
-			if (this.product.selected_category_small != undefined) {
-				this.getSpuList()	
-			}else{
-				this.$router.push("/")//没有点击获取数据跳回首页
-			}
+			this.getSpuList()	
+			
 		},
 		components: {
 			SpuList

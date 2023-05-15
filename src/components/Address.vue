@@ -1,5 +1,5 @@
 <template>
-	<div class="w-40 box-shadow rounded p-4 mb-4 ml-3">
+	<div class="w-40 box-shadow rounded p-4 mb-4 ml-3" :class="{'box-shadow-red':data.uaddr_isdefault === 0}">
 		<!-- 列表展示 -->
 		<div v-if="data !== customer.edit_address">
 			<!-- 为0是 默认地址 -->
